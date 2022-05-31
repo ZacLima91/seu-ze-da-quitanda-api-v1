@@ -1,70 +1,35 @@
-const frutas = [
-    {
-      id: 1,
-      nome: 'Melancia',
-      descricao:
-        'Melancia é uma planta da família Cucurbitaceae e do seu fruto. Trata-se de uma trepadeira rastejante originária da África.',
-      foto: './assets/images/melancia.png',
-      preco: 10.0,
-    },
-    {
-      id: 2,
-      nome: 'Banana',
-      descricao:
-        'Banana, pacoba ou pacova é uma pseudobaga da bananeira, uma planta herbácea vivaz acaule da família Musaceae.',
-      foto: './assets/images/banana.png',
-      preco: 10.0,
-    },
-    {
-      id: 3,
-      nome: 'Uva',
-      descricao:
-      'A uva é o fruto da videira, uma planta da família das Vitaceae. É utilizada frequentemente para produzir sumo, doce, vinho e passas, podendo também ser consumida ao natural',
-      foto: './assets/images/uva.png',
-      preco: 7.0,
-    },
-    {
-      id: 4,
-      nome: 'Manga',
-      descricao:
-      'A manga é o fruto da mangueira, árvore frutífera da família Anacardiaceae, nativa do sul e do sudeste asiático desde o leste da Índia até as Filipinas, e introduzida com sucesso no Brasil, em Angola, em Moçambique, Portugal e Espanha',
-      foto: './assets/images/manga.png',
-      preco: 14.0,
-    },
-  ];
 
-const findAllFrutasServices = ()=>{
-    return frutas;
-}
+import Frutas from '../models/frutas.js';
 
-const findByIdFrutasService = (parametroId)=>{
-    const fruta = frutas.find((fruta) => fruta.id === parametroId);
-    return fruta;
-}
+const findAllFrutasServices = async () => {
+  const allFrutas = await Frutas.find();
+  return allFrutas;
+};
 
-const createFrutaService = (newFruta)=>{
-    const newId = frutas.length +1;
-    newFruta.id = newId;
-    frutas.push(newFruta);
-    return newFruta;
-}
+const findByIdFrutasService = async (idParam) => {
+  const oneFruta = await Frutas.findById(idParam);
+  return oneFruta;
+};
 
-const updateFrutaService = (id, frutaEdit)=>{
-    frutaEdit['id'] = id;
-    const frutaIndex = frutas.findIndex((fruta) => fruta.id == id);
-    frutas[frutaIndex] = frutaEdit;
-    return frutaEdit;
-}
+const createFrutaService = async (newFruta) => {
+const createdFruta = await Frutas.create(newFruta)
+  return createdFruta;
+};
 
-const deleteFrutaService = (id)=>{
-    const frutaIndex = frutas.findIndex((fruta)=> fruta.id == id);
-    return frutas.splice(frutaIndex, 1)
-}
+const updateFrutaService = async (idParam, editFruta) => {
+  const updateFruta = await Frutas.findByIdAndUpdate(idParam, editFruta);
+  
+  return updateFruta;
+};
+
+const deleteFrutaService = async (idParam) => {
+  return await Frutas.findByIdAndDelete(idParam)
+};
 
 export default {
-    findAllFrutasServices,
-    findByIdFrutasService,
-    createFrutaService,
-    updateFrutaService,
-    deleteFrutaService
-}
+  findAllFrutasServices,
+  findByIdFrutasService,
+  createFrutaService,
+  updateFrutaService,
+  deleteFrutaService,
+};
