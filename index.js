@@ -4,7 +4,7 @@ import routes from './src/routers/fruta.route.js'
 import connectToDataBase from './src/database/database.js'
 
 const app = express();
-const port = 3000;
+const port = 3001;
 
 connectToDataBase();
 
